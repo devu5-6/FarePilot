@@ -1,0 +1,73 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+  <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+  <queries>
+    <package android:name="com.ubercab.driver" />
+    <package android:name="com.rapido.pilot" />
+    <package android:name="com.rapido.rider" />
+    <package android:name="com.olacabs.driver" />
+  </queries>
+
+  <application 
+    android:name=".MainApplication" 
+    android:label="@string/app_name" 
+    android:icon="@mipmap/ic_launcher" 
+    android:roundIcon="@mipmap/ic_launcher_round" 
+    android:allowBackup="true" 
+    android:theme="@style/AppTheme" 
+    android:supportsRtl="true" 
+    android:enableOnBackInvokedCallback="false">
+    
+    <meta-data android:name="expo.modules.updates.ENABLED" android:value="false"/>
+    
+    <activity 
+      android:name=".MainActivity" 
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode|smallestScreenSize|assetsPaths" 
+      android:launchMode="singleTask" 
+      android:windowSoftInputMode="adjustResize" 
+      android:theme="@style/Theme.App.SplashScreen" 
+      android:exported="true" 
+      android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Smart Pickup Accessibility Service -->
+    <service
+      android:name=".SmartPickupAccessibilityService"
+      android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.accessibilityservice.AccessibilityService" />
+      </intent-filter>
+      <meta-data
+        android:name="android.accessibilityservice"
+        android:resource="@xml/accessibility_service_config" />
+    </service>
+
+    <!-- Floating HUD Overlay Service -->
+    <service
+      android:name=".FloatingOverlayService"
+      android:exported="false" />
+
+    <!-- Persistent Co-Pilot Foreground Service -->
+    <service
+      android:name=".SmartPickupForegroundService"
+      android:foregroundServiceType="specialUse"
+      android:exported="false">
+      <property
+        android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+        android:value="Rideshare and delivery order evaluation HUD" />
+    </service>
+
+  </application>
+</manifest>
