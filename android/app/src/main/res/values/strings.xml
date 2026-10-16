@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">Smart Pickup</string>
+  <string name="accessibility_service_description">Smart Pickup automatically reads incoming trip cards from rideshare and delivery apps to evaluate profitability per kilometer and per hour.</string>
+</resources>
